@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<%- include('partials/head') %>
+<body>
+  <%- include('partials/header') %>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="hero__saudacao"><%= saudacao %>! Bem-vindo(a) de volta.</p>
+        <h1>Seu bolso, organizado como um livro-caixa.</h1>
+        <p>
+          O Meu Bolso é um caderno de contas digital: registre receitas e despesas,
+          acompanhe seu saldo e entenda para onde seu dinheiro está indo — tudo
+          guardado com privacidade, direto no seu navegador.
+        </p>
+        <div class="hero__acoes">
+          <a href="/transacoes" class="btn btn--ouro">Lançar transação</a>
+          <a href="/relatorios" class="btn btn--linha">Ver relatórios</a>
+        </div>
+      </div>
+      <img src="/images/hero-ledger.svg" alt="Ilustração de um livro-caixa aberto com um gráfico de saldo subindo e uma moeda ao lado" />
+    </section>
+
+    <section>
+      <p class="eyebrow">Resumo</p>
+      <h2>Como está o seu saldo</h2>
+      <div class="resumo">
+        <div class="cartao" data-tipo="saldo">
+          <p class="cartao__rotulo">Saldo atual</p>
+          <p class="cartao__valor" id="valor-saldo">R$ 0,00</p>
+        </div>
+        <div class="cartao" data-tipo="receita">
+          <p class="cartao__rotulo">Total em receitas</p>
+          <p class="cartao__valor" id="valor-receitas">R$ 0,00</p>
+        </div>
+        <div class="cartao" data-tipo="despesa">
+          <p class="cartao__rotulo">Total em despesas</p>
+          <p class="cartao__valor" id="valor-despesas">R$ 0,00</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="eyebrow">Movimentação</p>
+      <h2>Últimos lançamentos</h2>
+      <div class="razao">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Tipo</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody id="corpo-recentes">
+            <tr id="linha-vazia-recentes" class="linha-vazia">
+              <td colspan="4">Carregando lançamentos salvos no seu navegador…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="acao-secundaria"><a href="/transacoes" class="btn btn--linha">Ver todas as transações →</a></p>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/dashboard.js"></script>
+  </body>
+</html>

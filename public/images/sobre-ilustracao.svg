@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240">
+  <rect x="20" y="30" width="280" height="180" rx="12" fill="#fffdf7" stroke="#c9bfa0" stroke-width="2"/>
+  <rect x="20" y="30" width="280" height="26" rx="12" fill="#1b2a4a"/>
+  <circle cx="36" cy="43" r="4" fill="#b5533c"/>
+  <circle cx="48" cy="43" r="4" fill="#c9a227"/>
+  <circle cx="60" cy="43" r="4" fill="#2f6f5e"/>
+
+  <rect x="45" y="90" width="120" height="14" rx="3" fill="#e4dcc5"/>
+  <rect x="45" y="112" width="90" height="14" rx="3" fill="#e4dcc5"/>
+
+  <g transform="translate(210 95)">
+    <rect x="0" y="16" width="56" height="42" rx="6" fill="#2f6f5e"/>
+    <path d="M10 16 v-10 a18 18 0 0 1 36 0 v10" fill="none" stroke="#1b2a4a" stroke-width="6"/>
+    <circle cx="28" cy="38" r="6" fill="#fffdf7"/>
+  </g>
+
+  <rect x="45" y="150" width="230" height="34" rx="6" fill="#e3efe9" stroke="#2f6f5e" stroke-width="1.4"/>
+  <text x="60" y="172" font-family="Courier New, monospace" font-size="13" fill="#2f6f5e">localStorage.setItem(...)</text>
+</svg>

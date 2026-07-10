@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<%- include('partials/head') %>
+<body>
+  <%- include('partials/header') %>
+
+  <main>
+    <section>
+      <p class="eyebrow">Análise</p>
+      <h1>Relatórios</h1>
+      <p>
+        Um raio-x de como seu dinheiro entra e sai, calculado na hora a partir
+        dos lançamentos guardados no seu navegador.
+      </p>
+    </section>
+
+    <section id="relatorio-vazio" hidden>
+      <img src="/images/vazio.svg" alt="Ilustração de uma carteira vazia, indicando ausência de lançamentos" />
+      <p class="alerta alerta--vazio">
+        Você ainda não tem lançamentos para gerar relatórios.
+        <a href="/transacoes">Adicione sua primeira transação</a>.
+      </p>
+    </section>
+
+    <div id="relatorio-conteudo" hidden>
+      <section>
+        <div class="resumo">
+          <div class="cartao" data-tipo="receita">
+            <p class="cartao__rotulo">Total em receitas</p>
+            <p class="cartao__valor" id="relatorio-total-receitas">R$ 0,00</p>
+          </div>
+          <div class="cartao" data-tipo="despesa">
+            <p class="cartao__rotulo">Total em despesas</p>
+            <p class="cartao__valor" id="relatorio-total-despesas">R$ 0,00</p>
+          </div>
+          <div class="cartao">
+            <p class="cartao__rotulo">Saldo do período</p>
+            <p class="cartao__valor" id="relatorio-saldo">R$ 0,00</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Receitas por categoria</h2>
+        <div class="barra-grupo" id="barras-receitas"></div>
+      </section>
+
+      <section>
+        <h2>Despesas por categoria</h2>
+        <div class="barra-grupo" id="barras-despesas"></div>
+      </section>
+    </div>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/relatorios.js"></script>
+  </body>
+</html>

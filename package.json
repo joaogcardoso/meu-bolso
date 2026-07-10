@@ -1,0 +1,26 @@
+{
+  "name": "meu-bolso",
+  "version": "1.0.0",
+  "description": "Meu Bolso - aplicação de controle financeiro pessoal feita com ExpressJS e EJS, com persistência das transações via localStorage.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "keywords": [
+    "express",
+    "ejs",
+    "localstorage",
+    "financas",
+    "seminario"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.22.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
