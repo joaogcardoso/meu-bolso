@@ -1,0 +1,5 @@
+<% if (typeof alert !== "undefined" && alert && alert.message) { %>
+  <div class="alert <%= alert.type === 'error' ? 'alert-error' : alert.type === 'success' ? 'alert-success' : 'alert-info' %>" role="alert">
+    <span><%= alert.message %></span>
+  </div>
+<% } %>

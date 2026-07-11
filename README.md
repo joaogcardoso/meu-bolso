@@ -1,113 +1,310 @@
-# 💰 Meu Bolso — Controle Financeiro Pessoal
+<h1 align="center">Meu Bolso</h1>
 
-Projeto acadêmico (Seminário) construído com **Node.js**, **ExpressJS** e o motor de
-templates **EJS**, com persistência das transações financeiras no **localStorage**
-do navegador.
+<p align="center">
+  Aplicação web acadêmica de controle financeiro pessoal desenvolvida com Node.js, Express.js, EJS e JavaScript no navegador.
+</p>
 
-> Todos os lançamentos (receitas e despesas) ficam guardados apenas no seu
-> navegador, em formato JSON, na chave `meubolso:transacoes` do `localStorage`.
-> Nada é enviado a um banco de dados ou servidor externo.
+<p align="center">
+  <img alt="Node.js e Express.js" src="https://img.shields.io/badge/Node.js-Express.js-339933?logo=node.js&logoColor=white" />
+  <img alt="EJS" src="https://img.shields.io/badge/templates-EJS-B4CA65" />
+  <img alt="JavaScript" src="https://img.shields.io/badge/language-JavaScript-F7DF1E?logo=javascript&logoColor=black" />
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/CSS-Tailwind%20CSS-38BDF8?logo=tailwindcss&logoColor=white" />
+  <img alt="License" src="https://img.shields.io/badge/license-ISC-blue" />
+</p>
 
-## ✨ Funcionalidades
+## Sumário
 
-- **Dashboard** com saldo atual, total de receitas/despesas e últimos lançamentos.
-- **Transações**: inserir, editar, excluir e **buscar por texto** (descrição ou
-  categoria), em uma tabela estilo livro-razão.
-- **Categorias**: lista de categorias pré-definidas (renderizada pelo servidor a
-  partir de um JSON) + formulário para sugerir novas categorias, com validação
-  no servidor.
-- **Relatórios**: gráfico de barras (CSS puro) com o total gasto/recebido por
-  categoria, calculado a partir dos dados do `localStorage`.
-- **Sobre**: explicação do projeto, perguntas frequentes e formulário de
-  contato com validação de e-mail no servidor.
-- Elementos de **renderização condicional** no servidor (saudação de acordo com
-  o horário, mensagens de sucesso/erro, cores por tipo de categoria) e no
-  cliente (estados vazios, saldo negativo em destaque).
+- [Sobre o projeto](#sobre-o-projeto)
+- [Funcionalidades](#funcionalidades)
+- [Demonstração](#demonstração)
+- [Arquitetura](#arquitetura)
+- [Estrutura do repositório](#estrutura-do-repositório)
+- [Tecnologias](#tecnologias)
+- [Persistência local](#persistência-local)
+- [Configuração](#configuração)
+- [Como executar](#como-executar)
+- [Scripts disponíveis](#scripts-disponíveis)
+- [Testes](#testes)
+- [Documentação técnica](#documentação-técnica)
+- [Limitações](#limitações)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
 
-## 🧱 Stack
+## Sobre o projeto
 
-| Camada        | Tecnologia                          |
-|---------------|--------------------------------------|
-| Servidor      | Node.js + ExpressJS                  |
-| Views         | EJS (Embedded JavaScript templates)  |
-| Estilo        | CSS puro, em arquivos externos       |
-| Persistência  | `localStorage` (navegador)           |
-| Fontes        | Source Serif 4, Inter, JetBrains Mono (Google Fonts) |
+O Meu Bolso é uma aplicação web acadêmica para registro e acompanhamento de receitas e despesas. O backend utiliza Express.js para organizar rotas, processar o formulário de contato e renderizar páginas EJS. No navegador, módulos JavaScript controlam o CRUD das transações, filtros, relatórios e cálculos apresentados no dashboard.
 
-## 📁 Estrutura de pastas
+A persistência da carteira simulada é realizada por meio do `localStorage`, mantendo os dados exclusivamente no navegador utilizado. Essa decisão faz parte do escopo acadêmico do projeto e elimina a necessidade de banco de dados nesta versão.
 
+## Funcionalidades
+
+- Dashboard com saldo, receitas, despesas e últimos lançamentos.
+- Cadastro de receitas e despesas no navegador.
+- Edição de transações.
+- Exclusão com confirmação em modal.
+- Filtro por descrição, categoria e tipo.
+- Ordenação por data ou valor.
+- Relatórios consolidados por categoria.
+- Categorias predefinidas carregadas de arquivo JSON.
+- Sugestões locais de categorias.
+- Formulário de contato validado no servidor.
+- Páginas personalizadas para 404 e erro interno.
+- Interface responsiva com Tailwind CSS e daisyUI.
+
+Status: implementação parcial
+
+- O formulário de contato valida os dados e redireciona, mas não envia e-mail nem salva mensagens.
+- As sugestões de categorias ficam apenas no navegador e não alteram o arquivo de categorias oficiais.
+
+## Demonstração
+
+> As capturas da interface serão adicionadas em `docs/images/`.
+
+Rotas principais para demonstração local:
+
+- `GET /`
+- `GET /transacoes`
+- `GET /categorias`
+- `GET /relatorios`
+- `GET /sobre`
+
+## Arquitetura
+
+A aplicação segue uma arquitetura monolítica modular. O Express.js renderiza páginas EJS e serve os assets. O navegador executa a lógica financeira simulada e persiste a carteira no `localStorage`.
+
+```mermaid
+flowchart LR
+    Browser[Navegador] --> Express[Express.js]
+    Express --> Routes[Routes]
+    Routes --> Controllers[Controllers]
+    Controllers --> EJS[EJS]
+    Controllers --> Services[Services]
+    Services --> JSON[JSON de categorias]
+    EJS --> Browser
+    Browser --> LocalStorage[(localStorage)]
 ```
-meu-bolso/
-├── server.js                 # ponto de entrada do Express
-├── package.json
-├── routes/                   # um router por página/recurso
-│   ├── index.js              # "/"           → dashboard
-│   ├── transacoes.js         # "/transacoes" → tela de lançamentos
-│   ├── categorias.js         # "/categorias" → lista + sugestão (POST)
-│   ├── relatorios.js         # "/relatorios" → relatórios
-│   └── sobre.js              # "/sobre"      → sobre + contato (POST)
-├── views/
-│   ├── partials/             # head, header (nav) e footer reaproveitados
-│   ├── index.ejs
-│   ├── transacoes.ejs
-│   ├── categorias.ejs
-│   ├── relatorios.ejs
-│   ├── sobre.ejs
-│   └── 404.ejs
-└── public/
-    ├── css/                  # reset.css + style.css (nenhum estilo inline)
-    ├── js/
-    │   ├── storage.js        # camada de acesso ao localStorage (CRUD)
-    │   ├── transacoes.js     # lógica da tabela (inserir/editar/excluir/buscar)
-    │   ├── dashboard.js      # resumo + últimos lançamentos na home
-    │   └── relatorios.js     # agrupamento e barras de gastos
-    ├── data/
-    │   └── categorias.json   # fonte única das categorias (servidor + cliente)
-    └── images/               # ilustrações SVG originais do projeto
+
+A documentação técnica detalha os módulos, fluxos, validators, services, views e scripts do navegador.
+
+## Estrutura do repositório
+
+```text
+src/
+├── app.js
+├── server.js
+├── config/
+├── controllers/
+├── middlewares/
+├── public/
+│   ├── css/
+│   ├── data/
+│   ├── images/
+│   └── js/
+├── routes/
+├── services/
+├── styles/
+├── utils/
+├── validators/
+└── views/
+tests/
+├── integration/
+└── unit/
+docs/
+└── DOCUMENTACAO-TECNICA.md
 ```
 
-## ▶️ Como rodar localmente
+Diretórios principais:
 
-Pré-requisitos: [Node.js](https://nodejs.org/) instalado (versão 18 ou superior).
+- `src/routes`: definição de URLs e métodos HTTP.
+- `src/controllers`: preparação de view models e respostas.
+- `src/services`: lógica reutilizável de carregamento de categorias.
+- `src/views`: layout, páginas, partials e erros EJS.
+- `src/public/js`: módulos do navegador para storage, validação, DOM, dashboard, transações e relatórios.
+- `tests`: testes unitários e de integração.
+
+## Tecnologias
+
+| Tecnologia   | Finalidade                 |
+| ------------ | -------------------------- |
+| Node.js      | Ambiente de execução       |
+| Express.js   | Servidor HTTP e roteamento |
+| EJS          | Renderização server-side   |
+| JavaScript   | Comportamento no navegador |
+| Tailwind CSS | Estilização                |
+| daisyUI      | Componentes visuais        |
+| Helmet       | Headers de segurança       |
+| Vitest       | Testes unitários           |
+| Supertest    | Testes de rotas            |
+| ESLint       | Análise estática           |
+| Prettier     | Formatação                 |
+
+## Persistência local
+
+> Este projeto utiliza `localStorage` para simular a persistência da carteira financeira. Os registros permanecem somente no navegador e não devem ser utilizados para armazenar informações financeiras reais.
+
+Características:
+
+- não há banco de dados;
+- não há sincronização entre dispositivos;
+- os dados ficam no perfil do navegador;
+- limpar os dados do navegador remove os registros;
+- o backend não recebe as transações financeiras;
+- transações são armazenadas em schema versionado;
+- valores monetários são salvos em centavos inteiros.
+
+Chave principal:
+
+```text
+meubolso:v2:transactions
+```
+
+## Configuração
+
+Crie um arquivo local de configuração a partir do exemplo:
 
 ```bash
-# 1. instale as dependências
-npm install
-
-# 2. inicie o servidor
-npm start
-# ou, durante o desenvolvimento, com recarregamento automático:
-npm run devStart
-
-# 3. abra no navegador
-http://localhost:3000
+cp .env.example .env
 ```
 
-## ☁️ Como publicar no CodeSandbox
+Variáveis reais:
 
-1. Crie um novo sandbox a partir de um template **Node.js**.
-2. Envie (ou importe via GitHub) todos os arquivos deste projeto.
-3. O CodeSandbox roda `npm install` automaticamente; confirme que o `package.json`
-   está na raiz do projeto.
-4. O servidor escuta em `process.env.PORT || 3000`, compatível com a porta que o
-   CodeSandbox injeta automaticamente.
-5. Compartilhe o link do sandbox com o e-mail solicitado no seminário.
+| Variável   | Obrigatória | Valor padrão  | Finalidade        |
+| ---------- | ----------: | ------------- | ----------------- |
+| `NODE_ENV` |         Não | `development` | Define o ambiente |
+| `PORT`     |         Não | `3030`        | Porta HTTP        |
 
-## 🗄️ Sobre o uso do localStorage
+O código valida a porta no início da aplicação. Valores inválidos em `PORT` interrompem a inicialização.
 
-A tabela de transações é o coração do projeto. Toda a lógica de CRUD vive em
-`public/js/storage.js` e `public/js/transacoes.js`:
+## Como executar
 
-- `MeuBolso.obterTransacoes()` — lê e faz `JSON.parse` da lista salva.
-- `MeuBolso.adicionarTransacao(dados)` — gera um id e adiciona à lista.
-- `MeuBolso.atualizarTransacao(id, dados)` — localiza pelo id e sobrescreve.
-- `MeuBolso.removerTransacao(id)` — filtra a lista removendo o item.
-- A busca textual filtra o array em memória (sem round-trip com o servidor)
-  antes de re-renderizar as linhas da tabela.
+Requisitos:
 
-Como os dados moram no navegador, **cada navegador/dispositivo tem seu próprio
-histórico** — isso está documentado na página "Sobre" para o usuário final.
+- Node.js 20 ou superior recomendado;
+- npm.
 
-## 📄 Licença
+Instalação:
 
-Projeto de uso educacional, livre para estudo e adaptação.
+```bash
+git clone <url-do-repositorio>
+cd meu-bolso
+npm install
+cp .env.example .env
+```
+
+Execução em desenvolvimento:
+
+```bash
+npm run dev
+```
+
+Execução normal:
+
+```bash
+npm run build:css
+npm start
+```
+
+Endereço padrão:
+
+```text
+http://localhost:3030
+```
+
+## Scripts disponíveis
+
+| Comando                 | Descrição                                    |
+| ----------------------- | -------------------------------------------- |
+| `npm run dev`           | Executa a aplicação com `nodemon`            |
+| `npm run build:css`     | Gera o CSS final em `src/public/css/app.css` |
+| `npm run watch:css`     | Observa alterações de CSS                    |
+| `npm start`             | Inicia a aplicação com Node.js               |
+| `npm test`              | Executa os testes                            |
+| `npm run test:coverage` | Executa testes com cobertura                 |
+| `npm run lint`          | Verifica o código com ESLint                 |
+| `npm run format`        | Formata os arquivos com Prettier             |
+| `npm run format:check`  | Verifica formatação                          |
+| `npm run check`         | Executa lint e testes                        |
+
+## Testes
+
+Ferramentas:
+
+- Vitest para testes unitários;
+- Supertest para testes de rotas Express;
+- jsdom para simular APIs do navegador em testes do storage.
+
+Executar testes:
+
+```bash
+npm test
+```
+
+Executar cobertura:
+
+```bash
+npm run test:coverage
+```
+
+Cenários cobertos:
+
+- criação, atualização e exclusão de transações;
+- cálculo de receitas, despesas e saldo;
+- migração de dados legados do `localStorage`;
+- tratamento de JSON corrompido;
+- validação de transações;
+- validação de contato;
+- renderização das rotas principais;
+- página 404;
+- erro controlado na leitura de categorias.
+
+## Documentação técnica
+
+A documentação detalhada da arquitetura, dos módulos, das rotas, da persistência e dos fluxos internos está disponível em:
+
+- [`docs/DOCUMENTACAO-TECNICA.md`](docs/DOCUMENTACAO-TECNICA.md)
+
+## Limitações
+
+- Persistência somente local.
+- Ausência de contas de usuário.
+- Ausência de autenticação.
+- Ausência de sincronização entre dispositivos.
+- Ausência de banco de dados.
+- Ausência de recuperação remota.
+- Dependência do armazenamento do navegador.
+- Formulário de contato sem envio real de mensagem.
+- Uso exclusivamente acadêmico e demonstrativo.
+
+## Contribuição
+
+1. Faça um fork do repositório.
+2. Crie uma branch:
+
+   ```bash
+   git checkout -b feat/minha-alteracao
+   ```
+
+3. Realize as alterações e execute as verificações:
+
+   ```bash
+   npm run check
+   npm run format:check
+   ```
+
+4. Crie o commit:
+
+   ```bash
+   git commit -m "feat: descreve a alteração"
+   ```
+
+5. Envie a branch:
+
+   ```bash
+   git push origin feat/minha-alteracao
+   ```
+
+6. Abra um Pull Request.
+
+## Licença
+
+O `package.json` declara licença ISC. Não há arquivo `LICENSE` no repositório nesta versão.

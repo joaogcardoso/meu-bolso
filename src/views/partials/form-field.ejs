@@ -1,0 +1,28 @@
+<div class="form-control">
+  <label class="label" for="<%= id %>">
+    <span class="label-text font-medium"><%= label %></span>
+  </label>
+  <% if (type === "textarea") { %>
+    <textarea
+      class="textarea textarea-bordered min-h-28 <%= error ? 'textarea-error' : '' %>"
+      id="<%= id %>"
+      name="<%= name %>"
+      <% if (required) { %>required<% } %>
+      <% if (describedBy) { %>aria-describedby="<%= describedBy %>"<% } %>
+    ><%= value || "" %></textarea>
+  <% } else { %>
+    <input
+      class="input input-bordered <%= error ? 'input-error' : '' %>"
+      id="<%= id %>"
+      name="<%= name %>"
+      type="<%= type %>"
+      value="<%= value || "" %>"
+      <% if (placeholder) { %>placeholder="<%= placeholder %>"<% } %>
+      <% if (required) { %>required<% } %>
+      <% if (describedBy) { %>aria-describedby="<%= describedBy %>"<% } %>
+    />
+  <% } %>
+  <% if (error) { %>
+    <p class="mt-1 text-sm text-error" id="<%= describedBy %>"><%= error %></p>
+  <% } %>
+</div>

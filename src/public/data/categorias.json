@@ -1,0 +1,62 @@
+[
+  {
+    "id": "salary",
+    "name": "Salário",
+    "type": "income",
+    "description": "Pagamento recorrente do trabalho principal."
+  },
+  {
+    "id": "freelance",
+    "name": "Freelance",
+    "type": "income",
+    "description": "Projetos, serviços e trabalhos avulsos."
+  },
+  {
+    "id": "investments",
+    "name": "Investimentos",
+    "type": "income",
+    "description": "Rendimentos de aplicações e juros recebidos."
+  },
+  {
+    "id": "housing",
+    "name": "Moradia",
+    "type": "expense",
+    "description": "Aluguel, condomínio e contas da casa."
+  },
+  {
+    "id": "food",
+    "name": "Alimentação",
+    "type": "expense",
+    "description": "Mercado, restaurantes e delivery."
+  },
+  {
+    "id": "transport",
+    "name": "Transporte",
+    "type": "expense",
+    "description": "Ônibus, combustível e aplicativos de transporte."
+  },
+  {
+    "id": "health",
+    "name": "Saúde",
+    "type": "expense",
+    "description": "Consultas, remédios e plano de saúde."
+  },
+  {
+    "id": "education",
+    "name": "Educação",
+    "type": "expense",
+    "description": "Cursos, livros e material de estudo."
+  },
+  {
+    "id": "leisure",
+    "name": "Lazer",
+    "type": "expense",
+    "description": "Assinaturas, passeios e entretenimento."
+  },
+  {
+    "id": "other",
+    "name": "Outros",
+    "type": "expense",
+    "description": "Lançamentos que não se encaixam nas demais categorias."
+  }
+]

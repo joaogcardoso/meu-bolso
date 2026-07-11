@@ -1,0 +1,85 @@
+<section>
+  <p class="text-sm font-semibold uppercase tracking-wide text-primary">Organização</p>
+  <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Categorias</h1>
+  <p class="mt-3 max-w-3xl text-base-content/70">
+    As categorias padrão vêm de um arquivo JSON estático carregado pelo servidor. Sugestões são uma simulação local e ficam apenas neste navegador.
+  </p>
+</section>
+
+<% if (categoryStatus && categoryStatus.hasError) { %>
+  <div class="alert alert-warning mt-6" role="alert">
+    <span><%= categoryStatus.message %></span>
+  </div>
+<% } %>
+
+<section class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <% categories.forEach(function(category) { %>
+    <article class="card border border-base-300 bg-base-100 shadow-sm">
+      <div class="card-body">
+        <div class="flex items-start justify-between gap-4">
+          <h2 class="card-title"><%= category.name %></h2>
+          <span class="badge <%= category.type === 'income' ? 'badge-success' : 'badge-error' %>">
+            <%= category.type === "income" ? "Receita" : "Despesa" %>
+          </span>
+        </div>
+        <p class="text-sm text-base-content/70"><%= category.description %></p>
+      </div>
+    </article>
+  <% }) %>
+</section>
+
+<section class="mt-10 grid gap-6 lg:grid-cols-[380px_1fr]">
+  <form class="card border border-base-300 bg-base-100 shadow-sm" id="category-suggestion-form" action="/categorias" method="get" novalidate>
+    <div class="card-body gap-4">
+      <div>
+        <h2 class="card-title">Sugerir categoria</h2>
+        <p class="text-sm text-base-content/70">Demonstração local, sem envio ao servidor.</p>
+      </div>
+
+      <div class="form-control">
+        <label class="label" for="category-name">
+          <span class="label-text font-medium">Nome</span>
+        </label>
+        <input class="input input-bordered" id="category-name" name="name" type="text" maxlength="60" required />
+        <p class="mt-1 hidden text-sm text-error" id="category-name-error"></p>
+      </div>
+
+      <div class="form-control">
+        <label class="label" for="category-type">
+          <span class="label-text font-medium">Tipo</span>
+        </label>
+        <select class="select select-bordered" id="category-type" name="type" required>
+          <option value="expense">Despesa</option>
+          <option value="income">Receita</option>
+        </select>
+        <p class="mt-1 hidden text-sm text-error" id="category-type-error"></p>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-primary" type="submit">Adicionar sugestão local</button>
+      </div>
+    </div>
+  </form>
+
+  <div>
+    <div class="mb-3 flex items-center justify-between gap-4">
+      <h2 class="text-xl font-semibold">Sugestões locais</h2>
+      <button class="btn btn-sm btn-outline" id="clear-category-suggestions" type="button">Limpar</button>
+    </div>
+    <div class="overflow-x-auto rounded-box border border-base-300 bg-base-100">
+      <table class="table">
+        <caption class="sr-only">Sugestões de categorias salvas no navegador</caption>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody id="category-suggestions-body"></tbody>
+      </table>
+    </div>
+    <p class="mt-3 text-sm text-base-content/60" aria-live="polite" id="category-feedback"></p>
+  </div>
+</section>
+
+<script src="/js/pages/categories.js" defer></script>

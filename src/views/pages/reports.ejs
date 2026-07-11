@@ -1,0 +1,41 @@
+<section>
+  <p class="text-sm font-semibold uppercase tracking-wide text-primary">Análise</p>
+  <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Relatórios</h1>
+  <p class="mt-3 max-w-3xl text-base-content/70">
+    Os indicadores são calculados no navegador a partir das transações simuladas armazenadas localmente.
+  </p>
+</section>
+
+<section class="mt-8 grid gap-4 sm:grid-cols-3">
+  <div class="stat rounded-box border border-success/20 bg-success/10">
+    <div class="stat-title">Receitas</div>
+    <div class="stat-value text-2xl text-success" id="reports-income">R$ 0,00</div>
+  </div>
+  <div class="stat rounded-box border border-error/20 bg-error/10">
+    <div class="stat-title">Despesas</div>
+    <div class="stat-value text-2xl text-error" id="reports-expense">R$ 0,00</div>
+  </div>
+  <div class="stat rounded-box border border-base-300 bg-base-100">
+    <div class="stat-title">Saldo</div>
+    <div class="stat-value text-2xl" id="reports-balance">R$ 0,00</div>
+  </div>
+</section>
+
+<section class="mt-8 grid gap-6 lg:grid-cols-2">
+  <div class="card border border-base-300 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">Receitas por categoria</h2>
+      <div class="grid gap-3" id="income-report"></div>
+    </div>
+  </div>
+  <div class="card border border-base-300 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">Despesas por categoria</h2>
+      <div class="grid gap-3" id="expense-report"></div>
+    </div>
+  </div>
+</section>
+
+<div class="mt-8" id="reports-empty"></div>
+
+<script src="/js/pages/reports.js" defer></script>

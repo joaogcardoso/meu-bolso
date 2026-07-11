@@ -1,0 +1,117 @@
+<section class="grid gap-8 lg:grid-cols-[1fr_420px]">
+  <div>
+    <p class="text-sm font-semibold uppercase tracking-wide text-primary">Sobre o projeto</p>
+    <h1 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">Uma carteira simulada para estudo de Express.js e EJS.</h1>
+    <div class="mt-4 grid gap-4 text-base-content/70">
+      <p>
+        O Meu Bolso é um produto acadêmico demonstrável. Ele usa renderização server-side com EJS e JavaScript no navegador para simular uma carteira financeira pessoal.
+      </p>
+      <p>
+        Este projeto utiliza <code class="rounded bg-base-300 px-1">localStorage</code> para simular a persistência da carteira financeira. Os dados ficam restritos ao navegador e não devem ser considerados armazenamento financeiro real.
+      </p>
+    </div>
+  </div>
+
+  <div class="card border border-base-300 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h2 class="card-title">Limitações da simulação</h2>
+      <ul class="grid list-disc gap-2 pl-5 text-sm text-base-content/70">
+        <li>Os dados não são sincronizados entre dispositivos.</li>
+        <li>Limpar os dados do navegador remove os registros.</li>
+        <li>Não há contas, autenticação ou armazenamento no servidor.</li>
+        <li>Não use a aplicação para guardar informações financeiras reais.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="mt-10 grid gap-6 lg:grid-cols-[1fr_420px]">
+  <div class="overflow-x-auto rounded-box border border-base-300 bg-base-100">
+    <table class="table">
+      <caption class="sr-only">Perguntas frequentes sobre a simulação</caption>
+      <thead>
+        <tr>
+          <th>Pergunta</th>
+          <th>Resposta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Os dados vão para o servidor?</td>
+          <td>Não. As transações ficam somente no navegador.</td>
+        </tr>
+        <tr>
+          <td>Outro computador mostra os mesmos dados?</td>
+          <td>Não. Cada navegador possui seu próprio armazenamento local.</td>
+        </tr>
+        <tr>
+          <td>O formulário de contato salva mensagens?</td>
+          <td>Não. Ele valida os campos e simula o recebimento sem registrar dados pessoais.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <form class="card border border-base-300 bg-base-100 shadow-sm" action="/sobre" method="post" id="contact-form" novalidate>
+    <div class="card-body gap-4">
+      <div>
+        <h2 class="card-title">Contato</h2>
+        <p class="text-sm text-base-content/70">Formulário server-side com validação e sem log de dados pessoais.</p>
+      </div>
+
+      <% if (contact && contact.success) { %>
+        <div class="alert alert-success" role="alert">
+          <span>Mensagem validada com sucesso.</span>
+        </div>
+      <% } %>
+
+      <% if (contact && contact.message) { %>
+        <div class="alert alert-error" role="alert">
+          <span><%= contact.message %></span>
+        </div>
+      <% } %>
+
+      <%- include("../partials/form-field", {
+        id: "contact-name",
+        name: "name",
+        label: "Nome",
+        type: "text",
+        value: contact.values.name,
+        error: contact.errors.name,
+        required: true,
+        placeholder: "",
+        describedBy: "contact-name-error"
+      }) %>
+
+      <%- include("../partials/form-field", {
+        id: "contact-email",
+        name: "email",
+        label: "E-mail",
+        type: "email",
+        value: contact.values.email,
+        error: contact.errors.email,
+        required: true,
+        placeholder: "",
+        describedBy: "contact-email-error"
+      }) %>
+
+      <%- include("../partials/form-field", {
+        id: "contact-message",
+        name: "message",
+        label: "Mensagem",
+        type: "textarea",
+        value: contact.values.message,
+        error: contact.errors.message,
+        required: true,
+        placeholder: "",
+        describedBy: "contact-message-error"
+      }) %>
+
+      <div class="card-actions">
+        <button class="btn btn-primary" id="contact-submit" type="submit">Enviar</button>
+      </div>
+    </div>
+  </form>
+</section>
+
+<script src="/js/pages/about.js" defer></script>

@@ -1,0 +1,65 @@
+<section class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+  <div>
+    <p class="text-sm font-semibold uppercase tracking-wide text-primary"><%= greeting %></p>
+    <h1 class="mt-3 max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
+      Controle financeiro pessoal para demonstração acadêmica.
+    </h1>
+    <p class="mt-4 max-w-2xl text-lg text-base-content/70">
+      Registre receitas e despesas, acompanhe o saldo e visualize relatórios com dados simulados armazenados no navegador.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a class="btn btn-primary" href="/transacoes">Lançar transação</a>
+      <a class="btn btn-outline" href="/relatorios">Ver relatórios</a>
+    </div>
+  </div>
+  <div class="rounded-box border border-base-300 bg-base-100 p-6 shadow-sm">
+    <p class="text-sm font-medium text-base-content/60">Resumo da carteira simulada</p>
+    <div class="mt-4 grid gap-4">
+      <div class="stat rounded-box bg-base-200">
+        <div class="stat-title">Saldo atual</div>
+        <div class="stat-value text-2xl" id="dashboard-balance">R$ 0,00</div>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="stat rounded-box bg-success/10">
+          <div class="stat-title">Receitas</div>
+          <div class="stat-value text-xl text-success" id="dashboard-income">R$ 0,00</div>
+        </div>
+        <div class="stat rounded-box bg-error/10">
+          <div class="stat-title">Despesas</div>
+          <div class="stat-value text-xl text-error" id="dashboard-expense">R$ 0,00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mt-10">
+  <div class="mb-4 flex items-center justify-between gap-4">
+    <div>
+      <h2 class="text-2xl font-semibold">Últimos lançamentos</h2>
+      <p class="text-sm text-base-content/70">Os dados são lidos do armazenamento local deste navegador.</p>
+    </div>
+    <a class="btn btn-sm btn-outline" href="/transacoes">Ver todos</a>
+  </div>
+
+  <div class="overflow-x-auto rounded-box border border-base-300 bg-base-100">
+    <table class="table">
+      <caption class="sr-only">Últimas transações registradas no navegador</caption>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Tipo</th>
+          <th class="text-right">Valor</th>
+        </tr>
+      </thead>
+      <tbody id="recent-transactions">
+        <tr>
+          <td colspan="4" class="text-center text-base-content/60">Carregando lançamentos.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script src="/js/pages/dashboard.js" defer></script>

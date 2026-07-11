@@ -1,0 +1,35 @@
+<header class="border-b border-base-300 bg-base-100">
+  <a class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:btn focus:btn-primary" href="#conteudo">
+    Ir para o conteúdo
+  </a>
+
+  <div class="navbar mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="navbar-start">
+      <a href="/" class="flex items-center gap-3 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+        <img src="/images/logo.svg" alt="" class="h-9 w-9" aria-hidden="true" />
+        <span class="text-lg font-semibold tracking-tight">Meu Bolso</span>
+      </a>
+    </div>
+
+    <nav class="navbar-end hidden gap-1 md:flex" aria-label="Navegação principal">
+      <a class="btn btn-ghost btn-sm <%= currentPage === 'home' ? 'btn-active' : '' %>" href="/">Início</a>
+      <a class="btn btn-ghost btn-sm <%= currentPage === 'transactions' ? 'btn-active' : '' %>" href="/transacoes">Transações</a>
+      <a class="btn btn-ghost btn-sm <%= currentPage === 'categories' ? 'btn-active' : '' %>" href="/categorias">Categorias</a>
+      <a class="btn btn-ghost btn-sm <%= currentPage === 'reports' ? 'btn-active' : '' %>" href="/relatorios">Relatórios</a>
+      <a class="btn btn-ghost btn-sm <%= currentPage === 'about' ? 'btn-active' : '' %>" href="/sobre">Sobre</a>
+    </nav>
+
+    <div class="navbar-end md:hidden">
+      <details class="dropdown dropdown-end">
+        <summary class="btn btn-ghost btn-sm" aria-label="Abrir navegação">Menu</summary>
+        <nav class="menu dropdown-content z-20 mt-3 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow-lg" aria-label="Navegação principal mobile">
+          <a class="<%= currentPage === 'home' ? 'active' : '' %>" href="/">Início</a>
+          <a class="<%= currentPage === 'transactions' ? 'active' : '' %>" href="/transacoes">Transações</a>
+          <a class="<%= currentPage === 'categories' ? 'active' : '' %>" href="/categorias">Categorias</a>
+          <a class="<%= currentPage === 'reports' ? 'active' : '' %>" href="/relatorios">Relatórios</a>
+          <a class="<%= currentPage === 'about' ? 'active' : '' %>" href="/sobre">Sobre</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="meubolso">
+  <%- include("../partials/head") %>
+  <body class="min-h-screen bg-base-200 text-base-content">
+    <div class="flex min-h-screen flex-col">
+      <%- include("../partials/header") %>
+
+      <main id="conteudo" class="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+        <%- include(pageView) %>
+      </main>
+
+      <%- include("../partials/footer") %>
+    </div>
+  </body>
+</html>
